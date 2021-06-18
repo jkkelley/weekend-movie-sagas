@@ -6,6 +6,7 @@ function MovieItem({ movie }) {
   // Handle clicking on the image
   const handleImageClick = () => {
     console.log(`handleImageClick pressed`);
+    history.push("/details");
   };
   return (
     <div onClick={handleImageClick}>
