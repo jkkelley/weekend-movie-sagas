@@ -3,6 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 
 // Component import
 import MovieTitle from "../MovieTitle/MovieTitle";
+import MoviePosterUrl from "../MoviePosterURL/MoviePosterURL";
 
 // Material-ui Imports
 import { makeStyles } from "@material-ui/core/styles";
@@ -57,7 +58,8 @@ function AddMoviePage() {
 
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>Movie Poster URL</Paper>
+        <MoviePosterUrl />
+          {/* <Paper className={classes.paper}>Movie Poster URL</Paper> */}
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>Movie Description</Paper>
