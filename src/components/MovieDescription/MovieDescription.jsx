@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // Material-ui Imports
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MovieDescription() {
-
+  // Bring in Dispatch
+  const dispatch = useDispatch();
   // Area to hold our local states
   const [flipState, setFlipState] = useState(false);
 
@@ -42,7 +44,14 @@ function MovieDescription() {
     setMovieDescriptionStatus(!movieDescriptionStatus);
   };
 
-
+  const handleChange = (event) => {
+    event.preventDefault();
+    setMovieDescriptionInput(event.target.value);
+    dispatch({
+      type: "UPDATE_MOVIE_DESCRIPTION",
+      payload: event.target.value,
+    });
+  };
   return (
     <>
       {!flipState ? (
@@ -60,7 +69,7 @@ function MovieDescription() {
           <TextField
             id="standard-read-only-input"
             label="Movie Description"
-            onChange={(event) => setMovieDescriptionInput(event.target.value)}
+            onChange={handleChange}
           />
           <Button color="primary" onClick={handleFlips}>
             Confirm

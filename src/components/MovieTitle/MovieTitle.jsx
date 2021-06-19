@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
 // Material-ui Imports
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -24,13 +23,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MovieTitle() {
+  // Bring in Dispatch
+  const dispatch = useDispatch();
   // Area to hold our local states
   const [flipState, setFlipState] = useState(false);
 
   const [movieTitleInput, setMovieTitleInput] = useState("");
   const [movieTitleStatus, setMovieTitleStatus] = useState(false);
-  // Bring useHistory in
-  const history = useHistory();
   // Custom CSS
   const classes = useStyles();
 
@@ -43,6 +42,15 @@ function MovieTitle() {
     event.preventDefault();
     setFlipState(!flipState);
     setMovieTitleStatus(!movieTitleStatus);
+  };
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    setMovieTitleInput(event.target.value);
+    dispatch({
+      type: "UPDATE_MOVIE_TITLE",
+      payload: event.target.value,
+    });
   };
   return (
     <>
@@ -59,7 +67,7 @@ function MovieTitle() {
           <TextField
             id="standard-read-only-input"
             label="Movie Title"
-            onChange={(event) => setMovieTitleInput(event.target.value)}
+            onChange={handleChange}
           />
           <Button color="primary" onClick={handleFlips}>
             Confirm

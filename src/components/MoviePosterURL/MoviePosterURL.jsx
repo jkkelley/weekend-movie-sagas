@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Material-ui Imports
 import { makeStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 
@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MoviePosterUrl() {
+  // Bring in Dispatch
+  const dispatch = useDispatch();
   // Area to hold our local states
   const [flipState, setFlipState] = useState(false);
 
@@ -44,6 +46,15 @@ function MoviePosterUrl() {
     setFlipState(!flipState);
     setMoviePosterUrlStatus(!moviePosterUrlStatus);
   };
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    setMoviePosterUrlInput(event.target.value);
+    dispatch({
+      type: "UPDATE_MOVIE_POSTER_URL",
+      payload: event.target.value,
+    });
+  };
   return (
     <>
       {!flipState ? (
@@ -59,7 +70,7 @@ function MoviePosterUrl() {
           <TextField
             id="standard-read-only-input"
             label="Movie Poster URL"
-            onChange={(event) => setMoviePosterUrlInput(event.target.value)}
+            onChange={handleChange}
           />
           <Button color="primary" onClick={handleFlips}>
             Confirm

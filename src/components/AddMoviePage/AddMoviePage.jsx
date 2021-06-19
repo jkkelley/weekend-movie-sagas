@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
 // Component import
 import MovieDescription from "../MovieDescription/MovieDescription";
 import MovieDropDownMenu from "../MovieDropDownMenu/MovieDropDownMenu";
@@ -8,11 +8,9 @@ import MoviePosterUrl from "../MoviePosterURL/MoviePosterURL";
 import MovieTitle from "../MovieTitle/MovieTitle";
 // Material-ui Imports
 import { makeStyles } from "@material-ui/core/styles";
-
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function AddMoviePage() {
-  // Area to hold our local states
-
+  // Bring in Dispatch
+  const dispatch = useDispatch();
   // Bring useHistory in
   const history = useHistory();
   // Custom CSS
@@ -45,7 +43,12 @@ function AddMoviePage() {
   // Function to handle Save and POST to Database
   const handlePostAndSave = () => {
     console.log(`You clicked handlePostAndSave.`);
+    event.preventDefault();
+    dispatch({ type: "POST_ADD_MOVIE", payload: formSubmission });
   };
+
+  const formSubmission = useSelector((store) => store.formSubmission);
+  // console.log(formSubmission);
 
   return (
     <div className={classes.root}>

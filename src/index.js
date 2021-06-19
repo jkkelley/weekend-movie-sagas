@@ -16,6 +16,23 @@ function* rootSaga() {
   yield takeEvery("FETCH_MOVIES", fetchAllMovies);
   yield takeEvery("FETCH_GENRES", fetchAllGenres);
   yield takeEvery("FETCH_ALL_GENRES", fetchGenresList);
+  yield takeEvery("POST_ADD_MOVIE", postNewMovie);
+}
+
+function* postNewMovie(action) {
+  console.log(action.payload);
+  let data = {
+    title: action.payload.title,
+    poster: action.payload.poster,
+    description: action.payload.description,
+    genre_id: action.payload.genre_id,
+  };
+  console.log(data);
+  try {
+    yield axios.post("/api/movie", data);
+  } catch (error) {
+    console.log(`There was a PORT error with postMovie... ${error}`);
+  }
 }
 
 function* fetchAllMovies() {
@@ -102,6 +119,20 @@ const movieItem = (state = {}, action) => {
   }
 };
 
+const formSubmission = (state = {}, action) => {
+  switch (action.type) {
+    case "UPDATE_MOVIE_TITLE":
+      return { ...state, title: action.payload };
+    case "UPDATE_MOVIE_POSTER_URL":
+      return { ...state, poster: action.payload };
+    case "UPDATE_MOVIE_DESCRIPTION":
+      return { ...state, description: action.payload };
+    case "UPDATE_MOVIE_GENRE":
+      return { ...state, genre_id: action.payload };
+    default:
+      return state;
+  }
+};
 // Create one store that all components can use
 const storeInstance = createStore(
   combineReducers({
@@ -109,6 +140,7 @@ const storeInstance = createStore(
     genres,
     movieItem,
     genresList,
+    formSubmission,
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger)

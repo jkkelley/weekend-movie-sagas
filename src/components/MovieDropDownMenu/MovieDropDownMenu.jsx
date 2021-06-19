@@ -6,14 +6,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import { ImageSearch } from "@material-ui/icons";
-
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import Paper from "@material-ui/core/Paper";
 import Select from "@material-ui/core/Select";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +40,8 @@ function MovieDropDownMenu() {
   const [flipState, setFlipState] = useState(false);
   // Local State to hold Select Value state
   const [selectState, setSelectState] = useState("");
+  // Local id state
+  const [selectedId, setSelectedId] = useState();
   // Genre status State
   const [movieGenreStatus, setMovieGenreStatus] = useState(false);
   // Bring useHistory in
@@ -55,24 +55,35 @@ function MovieDropDownMenu() {
   };
 
   const handleFlips = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     setFlipState(!flipState);
     setMovieGenreStatus(!movieGenreStatus);
   };
 
+
+
   // Handle Change function
+  const handleChanges = (event) => {
+    event.preventDefault();
+    console.log(selectedId);
+  };
+
   const handleChange = (event) => {
     setSelectState(event.target.value);
-    dispatch({ type: "UPDATE_GENRE" });
-    // handleFlips();
-    console.log(selectState);
+  };
+
+  const addInput = (select) => {
+    console.log(select);
+    setSelectedId(select);
+    dispatch({
+      type: "UPDATE_MOVIE_GENRE",
+      payload: select,
+    });
   };
 
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_GENRES" });
   }, []);
-
-  console.log(genresList);
 
   return (
     <>
@@ -86,11 +97,20 @@ function MovieDropDownMenu() {
         )
       ) : (
         <div>
-          <FormControl className={classes.formControl} required>
+          <FormControl
+            className={classes.formControl}
+            required
+            onChange={handleChanges}
+          >
             <InputLabel id="demo-simple-select-label">Genre</InputLabel>
+
             <Select value={selectState} onChange={handleChange}>
-              {genresList.map((genre) => (
-                <MenuItem key={genre.id} value={genre.name}>
+              {genresList.map((genre, index) => (
+                <MenuItem
+                  onClick={() => addInput(genre.id)}
+                  key={genre.id}
+                  value={genre.name}
+                >
                   {genre.name}
                 </MenuItem>
               ))}
