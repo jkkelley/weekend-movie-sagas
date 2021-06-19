@@ -60,6 +60,8 @@ const genres = (state = [], action) => {
       return action.payload;
     case "FETCH_GENRES":
         return state
+    case "CLEAR_GENRES":
+        return []
     default:
       return state;
   }
@@ -70,6 +72,8 @@ const movieItem = (state = {}, action) => {
   switch (action.type) {
     case "SET_MOVIE_ITEM":
       return action.payload;
+    case "CLEAR_MOVIE_ITEM":
+        return {}
     default:
       return state;
   }
