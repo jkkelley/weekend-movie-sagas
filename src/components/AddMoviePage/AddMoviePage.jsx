@@ -34,21 +34,24 @@ function AddMoviePage() {
   // Custom CSS
   const classes = useStyles();
 
+
   // Function to handle route to add movie form
   const handleToHome = () => {
     console.log(`You've clicked handleToHome.`);
     history.push("/");
   };
 
+  const formSubmission = useSelector((store) => store.formSubmission);
+
   // Function to handle Save and POST to Database
   const handlePostAndSave = () => {
     console.log(`You clicked handlePostAndSave.`);
     event.preventDefault();
     dispatch({ type: "POST_ADD_MOVIE", payload: formSubmission });
+    history.push("/")
   };
 
-  const formSubmission = useSelector((store) => store.formSubmission);
-  // console.log(formSubmission);
+
 
   return (
     <div className={classes.root}>

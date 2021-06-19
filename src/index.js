@@ -30,6 +30,7 @@ function* postNewMovie(action) {
   console.log(data);
   try {
     yield axios.post("/api/movie", data);
+    yield put({type: "CLEAR_MOVIE_SUBMISSION"})
   } catch (error) {
     console.log(`There was a PORT error with postMovie... ${error}`);
   }
@@ -129,6 +130,8 @@ const formSubmission = (state = {}, action) => {
       return { ...state, description: action.payload };
     case "UPDATE_MOVIE_GENRE":
       return { ...state, genre_id: action.payload };
+    case "CLEAR_MOVIE_SUBMISSION":
+      return {}
     default:
       return state;
   }
