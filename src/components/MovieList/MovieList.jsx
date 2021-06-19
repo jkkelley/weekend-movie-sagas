@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+
+import Container from "@material-ui/core/Container";
+
 import "./MovieList.css";
 import MovieItem from "../MovieItem/MovieItem";
 
@@ -15,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(1),
     },
+    flexGrow: 1,
   },
 }));
 
@@ -49,10 +55,12 @@ function MovieList() {
           Add a Movie?
         </Button>
       </div>
-      <section className="movies">
-        {movies.map((movie, index) => (
-          <MovieItem key={index} movie={movie} />
-        ))}
+      <section>
+        <Container maxWidth="sm">
+          {movies.map((movie, index) => (
+            <MovieItem key={index} movie={movie} />
+          ))}
+        </Container>
       </section>
     </main>
   );

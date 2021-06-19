@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Material-ui Imports
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -52,6 +52,10 @@ function MovieTitle() {
       payload: event.target.value,
     });
   };
+
+  const formSubmission = useSelector((store) => store.formSubmission);
+  console.log(formSubmission.title);
+
   return (
     <>
       {!flipState ? (

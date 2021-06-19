@@ -1,0 +1,9 @@
+.details-page-ul-container ul {
+  list-style-type: none;
+  padding-right: 30px;
+}
+
+.movie-page-description-container {
+  width: 15rem;
+  margin: 0 auto 0 auto;
+}

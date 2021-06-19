@@ -1,13 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-
+import "./DetailsPage.css";
 // Genres component import
 import Genres from "../Genres/Genres";
 
 // Material-ui Imports
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +37,7 @@ function DetailsPage() {
   // Function to handle back to movie list
   const handleBackToMovies = () => {
     console.log(`You've clicked handleBackToMovies.`);
-    history.push("/")
+    history.push("/");
   };
   useEffect(() => {
     getGenres();
@@ -50,8 +51,10 @@ function DetailsPage() {
         </Button>
       </div>
       <h3>{movieItem.title} Details</h3>
-      <img src={movieItem.poster}></img>
-      <div>
+      <Container maxWidth="s">
+        <img src={movieItem.poster} height="300px"></img>
+      </Container>
+      <div className="details-page-ul-container">
         <h3>Genres</h3>
         <ul>
           {genres.map((genres, index) => (
@@ -59,7 +62,10 @@ function DetailsPage() {
           ))}
         </ul>
       </div>
-      <p>{movieItem.description}</p>
+      <h3>Description</h3>
+      <div className="movie-page-description-container">
+        <p>{movieItem.description}</p>
+      </div>
     </>
   );
 }
