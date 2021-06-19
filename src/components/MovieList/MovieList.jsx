@@ -7,6 +7,7 @@ import MovieItem from "../MovieItem/MovieItem";
 
 // Material-ui Imports
 import { makeStyles } from "@material-ui/core/styles";
+
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
