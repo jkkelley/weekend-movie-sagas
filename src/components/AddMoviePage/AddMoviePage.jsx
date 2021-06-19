@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
+// Component import
+import MovieTitle from "../MovieTitle/MovieTitle";
+
 // Material-ui Imports
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -25,10 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AddMoviePage() {
   // Area to hold our local states
-  const [flipState, setFlipState] = useState(false);
 
-  const [movieTitleInput, setMovieTitleInput] = useState("");
-  const [movieTitleStatus, setMovieTitleStatus] = useState(false);
   // Bring useHistory in
   const history = useHistory();
   // Custom CSS
@@ -45,23 +45,7 @@ function AddMoviePage() {
     console.log(`You clicked handlePostAndSave.`);
   };
 
-  const handleFlip = (event) => {
-    event.preventDefault();
-    setFlipState(!flipState);
-  };
 
-  const handleFlips = (event) => {
-    event.preventDefault();
-    setFlipState(!flipState);
-    setMovieTitleStatus(!movieTitleStatus);
-
-  };
-
-  const handleMovieTitleStatus = () => {
-    // event.preventDefault();
-    setFlipState(false);
-    setMovieTitleStatus(false);
-  };
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -69,26 +53,8 @@ function AddMoviePage() {
           <Paper className={classes.paper}>Add A New Movie</Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          {!flipState ? (
-            !movieTitleStatus ? (
-              <Paper className={classes.paper} onClick={handleFlip}>
-                Add Movie Title Here
-              </Paper>
-            ) : (
-              <p>Movie Title: {movieTitleInput}</p>
-            )
-          ) : (
-            <div>
-              <TextField
-                id="standard-read-only-input"
-                label="Movie Title"
-                onChange={(event) => setMovieTitleInput(event.target.value)}
-              />
-              <Button color="primary" onClick={handleFlips}>
-                Confirm
-              </Button>
-            </div>
-          )}
+          <MovieTitle />
+
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>Movie Poster URL</Paper>
