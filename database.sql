@@ -1,4 +1,9 @@
 -- CREATE DATABASE "saga_movies_weekend"
+SELECT "genres".name, "movies".title FROM "movies_genres"
+JOIN "genres" on "movies_genres".genre_id = "genres".id
+JOIN "movies" on "movies_genres".movie_id = "movies".id
+WHERE "movies".id = 1
+;
 
 
 CREATE TABLE "movies" (
