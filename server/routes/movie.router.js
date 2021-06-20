@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   console.log(req.query.id)
-  console.log(`got to /api/movie/id`, req.body.id);
+  console.log(`got to /api/movie/${req.query.id}` );
   const queryText = `
     SELECT * FROM "movies"
     WHERE "id"=$1
