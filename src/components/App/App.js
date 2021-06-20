@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/details" component={DetailsPage} />
+          <Route path="/details/:id" component={DetailsPage} />
         </Switch>
         <Route path="/" exact>
           <h1>The Movies Saga!</h1>

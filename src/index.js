@@ -17,6 +17,7 @@ function* rootSaga() {
   yield takeEvery("FETCH_GENRES", fetchAllGenres);
   yield takeEvery("FETCH_ALL_GENRES", fetchGenresList);
   yield takeEvery("POST_ADD_MOVIE", postNewMovie);
+  yield takeEvery("FETCH_MOVIE_ITEM", fetchMovie)
 }
 
 function* postNewMovie(action) {
@@ -33,6 +34,22 @@ function* postNewMovie(action) {
     yield put({ type: "CLEAR_MOVIE_SUBMISSION" });
   } catch (error) {
     console.log(`There was a PORT error with postMovie... ${error}`);
+  }
+}
+
+function* fetchMovie(action) {
+  const id = action.payload.id
+  try {
+    const oneMovie = yield axios.get(`/api/movie/${action.payload}` , {
+      params: {
+        id: action.payload
+     }
+    }
+    )
+    console.log("get movie item", oneMovie.data)
+    yield put({type: "SET_MOVIE_ITEM", payload: oneMovie.data})
+  } catch (error) {
+    console.log(`There was a GET ${error}`)
   }
 }
 
@@ -81,6 +98,16 @@ const movies = (state = [], action) => {
       return state;
   }
 };
+
+// Used to store details movie item
+const movie = (state = [], action) => {
+  switch(action.type) {
+    case "SET_MOVIE_ITEM":
+      return action.payload
+    default:
+      return state
+  }
+}
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
@@ -146,6 +173,7 @@ const storeInstance = createStore(
     movieItem,
     genresList,
     formSubmission,
+    movie,
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger)
