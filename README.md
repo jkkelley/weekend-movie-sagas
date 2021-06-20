@@ -2,6 +2,9 @@
 
 ## Description
 
+Author's note: 
+    I spent some time learning how to approach designing an app from a mobile-first outlook. It was quite enjoyable, but also came with it's struggles. Future plans are to add better styling and have an edit details page. 
+
 This app holds your collection movies. Upon entering the app, your greeted with all of your favorite movies.
 You have the choice to Add a movie or you can click on one of your movies to see further details about said movie.
 
