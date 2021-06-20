@@ -1,13 +1,10 @@
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 // Component imports
 import AddMoviePage from "../AddMoviePage/AddMoviePage";
 import DetailsPage from "../DetailsPage/DetailsPage";
+import EditPage from "../EditPage/EditPage";
 import MovieList from "../MovieList/MovieList";
 
 function App() {
@@ -15,10 +12,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route
-            path="/details"
-            component={DetailsPage}
-          />
+          <Route path="/details" component={DetailsPage} />
         </Switch>
         <Route path="/" exact>
           <h1>The Movies Saga!</h1>
@@ -26,6 +20,9 @@ function App() {
         </Route>
         <Route path="/addMovie">
           <AddMoviePage />
+        </Route>
+        <Route path="/edit/:id">
+          <EditPage />
         </Route>
       </Router>
     </div>
