@@ -17,7 +17,24 @@ function* rootSaga() {
   yield takeEvery("FETCH_GENRES", fetchAllGenres);
   yield takeEvery("FETCH_ALL_GENRES", fetchGenresList);
   yield takeEvery("POST_ADD_MOVIE", postNewMovie);
-  yield takeEvery("FETCH_MOVIE_ITEM", fetchMovie)
+  yield takeEvery("FETCH_MOVIE_ITEM", fetchMovie);
+  yield takeEvery("UPDATE_MOVIE_ITEM", updateMovie);
+}
+
+function* updateMovie(action) {
+  console.log(action.payload.id);
+  console.log(action.payload.data.description)
+  console.log(action.payload.data.title)
+  let data = {
+    id: action.payload.id,
+    title: action.payload.data.title,
+    description: action.payload.data.description
+  }
+  try {
+    yield axios.put(`/api/movie/${action.payload.id}`, data)
+  } catch(error) {
+    console.log(`Sorry there was an Movie UPDATE error ${error}`)
+  }
 }
 
 function* postNewMovie(action) {
@@ -38,18 +55,17 @@ function* postNewMovie(action) {
 }
 
 function* fetchMovie(action) {
-  const id = action.payload.id
+  const id = action.payload.id;
   try {
-    const oneMovie = yield axios.get(`/api/movie/${action.payload}` , {
+    const oneMovie = yield axios.get(`/api/movie/${action.payload}`, {
       params: {
-        id: action.payload
-     }
-    }
-    )
-    console.log("get movie item", oneMovie.data)
-    yield put({type: "SET_MOVIE_ITEM", payload: oneMovie.data})
+        id: action.payload,
+      },
+    });
+    console.log("get movie item", oneMovie.data);
+    yield put({ type: "SET_MOVIE_ITEM", payload: oneMovie.data });
   } catch (error) {
-    console.log(`There was a GET ${error}`)
+    console.log(`There was a GET ${error}`);
   }
 }
 
@@ -101,13 +117,13 @@ const movies = (state = [], action) => {
 
 // Used to store details movie item
 const movie = (state = [], action) => {
-  switch(action.type) {
+  switch (action.type) {
     case "SET_MOVIE_ITEM":
-      return action.payload
+      return action.payload;
     default:
-      return state
+      return state;
   }
-}
+};
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
