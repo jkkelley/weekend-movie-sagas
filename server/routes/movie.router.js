@@ -16,8 +16,8 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  console.log(req.query.id)
-  console.log(`got to /api/movie/${req.query.id}` );
+  console.log(req.query.id);
+  console.log(`got to /api/movie/${req.query.id}`);
   const queryText = `
     SELECT * FROM "movies"
     WHERE "id"=$1
@@ -29,6 +29,26 @@ router.get("/:id", (req, res) => {
     })
     .catch((error) => {
       console.log(`Error: Get your Movie item ${error}`);
+      res.sendStatus(500);
+    });
+});
+
+router.put("/:id", (req, res) => {
+  console.log(`Got to /api/movie/ put ${req.body.id}`);
+  const { id, title, description } = req.body;
+
+  const updateQueryText = `
+    UPDATE "movies" SET "title"=$1, "description"=$2
+    WHERE "id"=$3
+  `;
+  // Time a swim
+  pool
+    .query(updateQueryText, [title, description, id])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log(`We had an UPDATE error... ${error}`);
       res.sendStatus(500);
     });
 });

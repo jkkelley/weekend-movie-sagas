@@ -2,7 +2,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+
 import { useHistory, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import EditMovieTitle from "../EditMovieTitle/EditMovieTitle";
+import MovieDescription from "../MovieDescription/MovieDescription";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function EditPage() {
+  // Bring in Dispatch
+  const dispatch = useDispatch();
+  // Bring our params in.
   const params = useParams();
   console.log(params.id);
   // Custom CSS
@@ -29,11 +36,19 @@ function EditPage() {
   // Function handle Cancel
   const handleCancel = () => {
     console.log(`In handleCancel`);
-    history.push(`/details/${params.id}`)
+    history.push(`/details/${params.id}`);
   };
+
+  const formSubmission = useSelector((store) => store.formSubmission);
+
   // Function handle Update and Save
   const handleUpdateAndSave = () => {
     console.log(`In handleUpdateAndSave`);
+    dispatch({
+      type: "UPDATE_MOVIE_ITEM",
+      payload: { data: formSubmission, id: Number(params.id) },
+    });
+    history.push(`/details/${Number(params.id)}`)
   };
   return (
     <div className={classes.root}>
@@ -42,12 +57,11 @@ function EditPage() {
           <Paper className={classes.paper}>Edit Page</Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>Edit Movie Title </Paper>
+          <EditMovieTitle />
         </Grid>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>Edit Movie Description </Paper>
+          <MovieDescription />
         </Grid>
-
         <Grid item xs={6} sm={3}>
           <Button variant="outlined" onClick={handleCancel}>
             Cancel
