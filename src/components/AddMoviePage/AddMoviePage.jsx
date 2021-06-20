@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // Component import
 import MovieDescription from "../MovieDescription/MovieDescription";
@@ -27,13 +27,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function AddMoviePage() {
+  const params = useParams();
   // Bring in Dispatch
   const dispatch = useDispatch();
   // Bring useHistory in
   const history = useHistory();
   // Custom CSS
   const classes = useStyles();
-
 
   // Function to handle route to add movie form
   const handleToHome = () => {
@@ -48,16 +48,14 @@ function AddMoviePage() {
     console.log(`You clicked handlePostAndSave.`);
     event.preventDefault();
     dispatch({ type: "POST_ADD_MOVIE", payload: formSubmission });
-    history.push("/")
+    history.push("/");
   };
-
-
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>Add A New Movie</Paper>
+          <Paper className={classes.paper}>Enter New Movie Below </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           <MovieTitle />

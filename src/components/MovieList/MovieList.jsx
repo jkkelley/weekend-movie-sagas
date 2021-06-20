@@ -49,7 +49,7 @@ function MovieList() {
 
   return (
     <main>
-      <h1>MovieList</h1>
+      {/* <h1>MovieList</h1> */}
       <div className={classes.root}>
         <Button variant="outlined" onClick={handleAddToMovies}>
           Add a Movie?
