@@ -39,6 +39,12 @@ function DetailsPage() {
     console.log(`You've clicked handleBackToMovies.`);
     history.push("/");
   };
+
+  // Function to handle request to Edit Page
+  const handleEditPage = () => {
+    history.push(`/edit/${movieItem.id}`)
+  }
+
   useEffect(() => {
     getGenres();
   }, []);
@@ -48,6 +54,9 @@ function DetailsPage() {
       <div className={classes.root}>
         <Button variant="outlined" onClick={handleBackToMovies}>
           Back to Movies
+        </Button>
+        <Button variant="outlined" onClick={handleEditPage}>
+          Edit
         </Button>
       </div>
       <h3>{movieItem.title} Details</h3>
