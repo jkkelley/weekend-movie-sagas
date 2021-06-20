@@ -32,7 +32,7 @@ function MovieItem({ movie }) {
     // Dispatch to redux our movie item
     dispatch({ type: "SET_MOVIE_ITEM", payload: movie });
     history.push({
-      pathname: `/details`,
+      pathname: `/details/${movie.id}`,
       state: {
         id: movie.id,
         title: movie.title,
