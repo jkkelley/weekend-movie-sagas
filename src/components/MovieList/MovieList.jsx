@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
-
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import { useHistory } from "react-router-dom";
 
 import Container from "@material-ui/core/Container";
 

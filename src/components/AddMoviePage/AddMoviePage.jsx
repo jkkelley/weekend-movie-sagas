@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory, Link, useParams } from "react-router-dom";
+import React from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // Component import
 import MovieDescription from "../MovieDescription/MovieDescription";

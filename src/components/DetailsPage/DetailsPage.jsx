@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./DetailsPage.css";
 // Genres component import
 import Genres from "../Genres/Genres";
