@@ -41,7 +41,7 @@ function DetailsPage() {
 
   // Function to handle request to Edit Page
   const handleEditPage = () => {
-    history.push(`/edit/${movieItem.id}`);
+    history.push(`/edit/${params.id}`);
   };
 
   // Keep genres on refresh
