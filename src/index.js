@@ -25,7 +25,7 @@ function* updateMovie(action) {
   console.log(action.payload.id);
   console.log(action.payload.data.description)
   console.log(action.payload.data.title)
-  let data = {
+  let datas = {
     id: action.payload.id,
     title: action.payload.data.title,
     description: action.payload.data.description

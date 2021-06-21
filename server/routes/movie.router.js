@@ -36,21 +36,57 @@ router.get("/:id", (req, res) => {
 router.put("/:id", (req, res) => {
   console.log(`Got to /api/movie/ put ${req.body.id}`);
   const { id, title, description } = req.body;
+  let updateQueryText = ``;
 
-  const updateQueryText = `
+  switch (undefined) {
+    case title:
+      updateQueryText = `
+      UPDATE "movies" SET "description"=$1
+      WHERE "id"=$2;
+    `;
+      // Time a swim
+      pool
+        .query(updateQueryText, [description, id])
+        .then((result) => {
+          res.send(result.rows);
+        })
+        .catch((error) => {
+          console.log(`We had an UPDATE error... ${error}`);
+          res.sendStatus(500);
+        });
+      break;
+    case description:
+      updateQueryText = `
+      UPDATE "movies" SET "title"=$1
+      WHERE "id"=$2;
+    `;
+      // Time a swim
+      pool
+        .query(updateQueryText, [title, id])
+        .then((result) => {
+          res.send(result.rows);
+        })
+        .catch((error) => {
+          console.log(`We had an UPDATE error... ${error}`);
+          res.sendStatus(500);
+        });
+      break;
+    default:
+      updateQueryText = `
     UPDATE "movies" SET "title"=$1, "description"=$2
-    WHERE "id"=$3
+    WHERE "id"=$3;
   `;
-  // Time a swim
-  pool
-    .query(updateQueryText, [title, description, id])
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((error) => {
-      console.log(`We had an UPDATE error... ${error}`);
-      res.sendStatus(500);
-    });
+      // Time a swim
+      pool
+        .query(updateQueryText, [title, description, id])
+        .then((result) => {
+          res.send(result.rows);
+        })
+        .catch((error) => {
+          console.log(`We had an UPDATE error... ${error}`);
+          res.sendStatus(500);
+        });
+  }
 });
 
 router.post("/", (req, res) => {
