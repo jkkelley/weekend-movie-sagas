@@ -31,7 +31,7 @@ function* updateMovie(action) {
     description: action.payload.data.description
   }
   try {
-    yield axios.put(`/api/movie/${action.payload.id}`, data)
+    yield axios.put(`/api/movie/${action.payload.id}`, datas)
   } catch(error) {
     console.log(`Sorry there was an Movie UPDATE error ${error}`)
   }
